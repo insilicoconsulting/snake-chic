@@ -1,0 +1,17 @@
+name: arima-hic
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python
+  - r-base
+  - r-argparser
+  - hicup=0.8.1
+  - bedtools=2.25
+  - bioconductor-chicago
+  - bioconductor-rsamtools
+  - htslib
+  - samtools
+  - bowtie2
+  - bcftools
+  - deeptools
