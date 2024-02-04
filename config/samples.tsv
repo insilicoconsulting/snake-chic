@@ -1,0 +1,8 @@
+# Sample metadata file
+#
+# Each samples must have a corresponding FASTQ pair in the fastq
+# directory with format id_R[1/2].fastq.gz.
+#
+id      bed
+sample1 capture-bed-sample1.bed
+sample2 capture-bed-sample2.bed

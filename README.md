@@ -21,5 +21,6 @@ The files must be named in the format `samplename_[R1|R2].fastq.gz`, e.g. `sampl
 It's probably easiest to create this naming format using symbolic links, e.g. `ln -s /datadir/sample1_S1_L001_R1_001.fastq.gz fastq/sample1_R1.fastq.gz`.
 
 - Adapt the parameters in `config/config.yaml` to the requirements. Adapt the `arima_dir` parameter to the location of the `arima-chic` workflow directory above, and the `chicago_dir` parameter to the location of the `chicagoTools` directory above. The other parameters are explained in the [Arima repository README file](https://github.com/ArimaGenomics/CHiC).
+- Adapt the sample metadata file `config/samples.tsv` to use the sample names corresponding to the fastq files, and the suitable capture BED file for the sample.
 - Activate the `snakemake` Conda environment: `conda activate snakemake`
 - Execute the workflow: `snakemake --use-conda -p --cores 16`

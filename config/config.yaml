@@ -1,9 +1,13 @@
+# snake-chic workflow variables
+metadata_file: config/samples.tsv
 arima_dir: /shared/arima-hic
+capture_bed_dir: /shared
+
+# Arima workflow variables
 bowtie2_index_basename: /shared/hg38/reference/hg38
 genome_digest: /shared/hg38/reference/Digest_hg38_Arima.txt
 chicago_dir: /shared/arima-hic/chicagoTools
 output_prefix: results
-capture_bed: /shared/input_files/AR_3429981_Covered.bed
 rmap: /shared/hg38/5kb/hg38_chicago_input_5kb.rmap
 baitmap: /shared/hg38/5kb/hg38_chicago_input_5kb.baitmap
 design_dir: /shared/hg38/5kb

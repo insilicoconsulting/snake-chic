@@ -1,14 +1,14 @@
 # Workflow for running the Arima Hi-C workflow in parallel
 
 import os
+import pandas as pd
 from glob import glob
 
 configfile: "config/config.yaml"
 
-# required format: SAMPLE_[R1|R2].fastq.gz
-fastq_files = glob("fastq/*.fastq.gz")
-
-samples = [os.path.basename(s).rsplit("_", 1)[0] for s in fastq_files]
+meta_table = pd.read_table(config["metadata_file"], comment="#")
+meta_dict = meta_table.set_index('id').T.to_dict()
+samples = list(meta_table[meta_table.columns[0]])
 
 rule all:
     input:
@@ -18,7 +18,8 @@ rule all:
 rule run_arima_hic:
     input:
         fq1 = "fastq/{sample}_R1.fastq.gz",
-        fq2 = "fastq/{sample}_R2.fastq.gz"
+        fq2 = "fastq/{sample}_R2.fastq.gz",
+        capture_bed = lambda wildcards: os.path.join(config['capture_bed_dir'], meta_dict[wildcards.sample]['bed'])
     output:
         "results/{sample}/done.txt"
     conda:
@@ -34,7 +35,6 @@ rule run_arima_hic:
         bowtie2_index_basename = config["bowtie2_index_basename"],
         genome_digest = config["genome_digest"],
         chicago_dir = config["chicago_dir"],
-        capture_bed = config["capture_bed"],
         rmap = config["rmap"],
         baitmap = config["baitmap"],
         design_dir = config["design_dir"],
@@ -50,7 +50,7 @@ rule run_arima_hic:
 -I {input.fq1},{input.fq2} \
 -o `dirname {output}` \
 -p {wildcards.sample} \
--b {params.capture_bed} \
+-b {input.capture_bed} \
 -R {params.rmap} \
 -B {params.baitmap} \
 -D {params.design_dir} \
